@@ -105,6 +105,7 @@ jobs:
       run: |
         cd $OPENWRT_PATH
         #echo 'src-git 5gsupport https://github.com/Siriling/5G-Modem-Support.git;main' >> feeds.conf.default
+        echo 'src-git wwan_packages https://github.com/immortalwrt/wwan-packages.git' >> feeds.conf.default
         echo 'src-git modem https://github.com/FUjr/modem_feeds.git;main' >> feeds.conf.default
 
     - name: Install Feeds
