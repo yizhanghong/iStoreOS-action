@@ -101,6 +101,12 @@ jobs:
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
         prefix: ${{ env.OPENWRT_PATH }}
 
+    - name: User Feeds
+      run: |
+        cd $OPENWRT_PATH
+        echo 'src-git 5gsupport https://github.com/Siriling/5G-Modem-Support.git;main' >> feeds.conf.default
+        echo 'src-git modem https://github.com/FUjr/modem_feeds.git;main' >> feeds.conf.default
+
     - name: Install Feeds
       run: |
         cd $OPENWRT_PATH
