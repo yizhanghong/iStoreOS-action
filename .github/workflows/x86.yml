@@ -126,28 +126,22 @@ jobs:
         
     - name: Modem Support
       run: |
-        cd $OPENWRT_PATH
-        mkdir Modem-Support
-        pushd Modem-Support
-        git clone --depth=1 https://github.com/Siriling/5G-Modem-Support .
-        popd
-        mkdir package/community
-        pushd package/community
+        cd $OPENWRT_PATH 
+        git clone --depth=1 https://github.com/Siriling/5G-Modem-Support Modem-Support
         # 5G通信模组拨号工具
-        mkdir quectel_QMI_WWAN
-        mkdir quectel_cm_5G
-        mkdir quectel_MHI
-        mkdir luci-app-hypermodem
-        cp -rf ../../Modem-Support/quectel_QMI_WWAN/* quectel_QMI_WWAN
-        cp -rf ../../Modem-Support/quectel_cm_5G/* quectel_cm_5G
-        cp -rf ../../Modem-Support/quectel_MHI/* quectel_MHI
-        cp -rf ../../Modem-Support/luci-app-hypermodem/* luci-app-hypermodem
-        # 5G模组短信插件
-        mkdir sms-tool
-        mkdir luci-app-sms-tool
-        cp -rf ../../Modem-Support/sms-tool/* sms-tool
-        cp -rf ../../Modem-Support/luci-app-sms-tool/* luci-app-sms-tool
-        cp -rf ../../MyConfig/configs/istoreos/general/applications/luci-app-sms-tool/* luci-app-sms-tool
+        mkdir package/community
+        mkdir package/community/quectel_QMI_WWAN
+        mkdir package/community/quectel_cm_5G
+        mkdir package/community/quectel_MHI
+        mkdir package/community/luci-app-hypermodem        
+        mkdir package/community/sms-tool
+        mkdir package/community/luci-app-sms-tool
+        cp -rf ./Modem-Support/quectel_QMI_WWAN/* package/community/quectel_QMI_WWAN
+        cp -rf ./Modem-Support/quectel_cm_5G/* package/community/quectel_cm_5G
+        cp -rf ./Modem-Support/quectel_MHI/* package/community/quectel_MHI
+        cp -rf ./Modem-Support/luci-app-hypermodem/* package/community/luci-app-hypermodem
+        cp -rf ./Modem-Support/sms-tool/* package/community/sms-tool
+        cp -rf ./Modem-Support/luci-app-sms-tool/* package/community/luci-app-sms-tool
         
         #5G相关
         echo "
