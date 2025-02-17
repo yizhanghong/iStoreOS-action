@@ -185,6 +185,7 @@ jobs:
         echo "
         CONFIG_GRUB_IMAGES=y
         CONFIG_VMDK_IMAGES=y
+        CONFIG_VDI_IMAGES=y
         " >> .config
 
     - name: Download DL Package
