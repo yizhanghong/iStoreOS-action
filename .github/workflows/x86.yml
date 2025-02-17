@@ -127,8 +127,8 @@ jobs:
     - name: Modem Support
       run: |
         cd $OPENWRT_PATH 
-        rm -rf feeds/packages/lang/golang
-        git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+        #rm -rf feeds/packages/lang/golang
+        #git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
         git clone --depth=1 https://github.com/Siriling/5G-Modem-Support Modem-Support
         # 5G通信模组拨号工具
         mkdir package/community
@@ -161,7 +161,7 @@ jobs:
         # CONFIG_PACKAGE_luci-app-cpe=y
         # CONFIG_PACKAGE_sendat=y
         CONFIG_PACKAGE_sms-tool=y
-        CONFIG_PACKAGE_luci-app-modem=y
+        #CONFIG_PACKAGE_luci-app-modem=y
         
         # QMI拨号工具（移远，广和通）
         # CONFIG_PACKAGE_quectel-CM-5G=y
@@ -190,17 +190,17 @@ jobs:
         CONFIG_VDI_IMAGES=y
         " >> .config
         #Passwall和Passwall2
-        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
-        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/passwall2 
-        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/passwall
-        git clone --depth=1 https://github.com/vernesong/OpenClash package/OpenClash
-        find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
-        find ./ | grep Makefile | grep mosdns | xargs rm -f
-        git clone https://github.com/sbwml/luci-app-mosdns -b v5-lua package/mosdns
-        git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
-        echo "
+        #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
+        #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/passwall2 
+        #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/passwall
+        #git clone --depth=1 https://github.com/vernesong/OpenClash package/OpenClash
+        #find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
+        #find ./ | grep Makefile | grep mosdns | xargs rm -f
+        #git clone https://github.com/sbwml/luci-app-mosdns -b v5-lua package/mosdns
+        #git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
+        #echo "
         #CONFIG_PACKAGE_luci-app-passwall2=y
-        CONFIG_PACKAGE_luci-app-passwall=y
+        #CONFIG_PACKAGE_luci-app-passwall=y
         #CONFIG_PACKAGE_luci-app-passwall_Transparent_Proxy=y
         #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
         #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ChinaDNS_NG=y
@@ -224,7 +224,7 @@ jobs:
         #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
         #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray_Plugin=y
         #CONFIG_PACKAGE_luci-app-haproxy-tcp=y
-        " >> .config
+        #" >> .config
 
     - name: Download DL Package
       run: |
