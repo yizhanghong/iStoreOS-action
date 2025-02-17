@@ -188,9 +188,10 @@ jobs:
         CONFIG_VDI_IMAGES=y
         " >> .config
         #Passwall和Passwall2
-        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall/trunk openwrt-passwall package/passwall
-        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/passwallapp
-        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/passwall2 
+        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
+        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/passwall2 
+        git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/passwall
+        git clone --depth=1 https://github.com/vernesong/OpenClash package/OpenClash
         echo "
         CONFIG_PACKAGE_luci-app-passwall2=y
         CONFIG_PACKAGE_luci-app-passwall=y
