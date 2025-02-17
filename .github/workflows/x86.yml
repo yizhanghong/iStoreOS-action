@@ -192,6 +192,10 @@ jobs:
         git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/passwall2 
         git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/passwall
         git clone --depth=1 https://github.com/vernesong/OpenClash package/OpenClash
+        find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
+        find ./ | grep Makefile | grep mosdns | xargs rm -f
+        git clone https://github.com/sbwml/luci-app-mosdns -b v5-lua package/mosdns
+        git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
         echo "
         CONFIG_PACKAGE_luci-app-passwall2=y
         CONFIG_PACKAGE_luci-app-passwall=y
