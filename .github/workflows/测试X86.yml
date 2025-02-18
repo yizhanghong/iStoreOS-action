@@ -100,7 +100,15 @@ jobs:
         ccache: false
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
         prefix: ${{ env.OPENWRT_PATH }}
-
+    - name: User Feeds
+      run: |
+        cd $OPENWRT_PATH
+        #echo 'src-git 5gsupport https://github.com/Siriling/5G-Modem-Support.git;main' >> feeds.conf.default
+        #echo 'src-git wwan_packages https://github.com/immortalwrt/wwan-packages.git' >> feeds.conf.default
+        echo 'src-git modem https://github.com/FUjr/modem_feeds.git;main' >> feeds.conf.default
+        #rm -rf package/wwan
+        #git clone https://github.com/immortalwrt/wwan-packages.git package/wwan
+    
     - name: Install Feeds
       run: |
         cd $OPENWRT_PATH
@@ -173,7 +181,7 @@ jobs:
         name: R${{ env.DATE }} for ${{ env.FIRMWARE_TAG }}
         allowUpdates: true
         tag: ${{ env.FIRMWARE_TAG }}
-        token: ${{ secrets.TOKEN_OPPEN321 }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: ${{ env.FIRMWARE_PATH }}/*
         body: |
           **This is iStoreOS Firmware for ${{ env.FIRMWARE_TAG }}**
