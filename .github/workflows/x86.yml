@@ -9,7 +9,7 @@ env:
   REPO_URL: https://github.com/istoreos/istoreos
   REPO_BRANCH: istoreos-22.03 
   CONFIG_FILE: configs/x86.config
-  DIY_SCRIPT: diy-script.sh
+  DIY_SCRIPT: diy-x86.sh
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
@@ -121,110 +121,11 @@ jobs:
         [ -e files ] && mv files $OPENWRT_PATH/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/.config
         chmod +x $DIY_SCRIPT
+        chmod +x $GITHUB_WORKSPACE/scripts/*.sh
         cd $OPENWRT_PATH
         $GITHUB_WORKSPACE/$DIY_SCRIPT
-        
-    - name: Modem Support
-      run: |
-        cd $OPENWRT_PATH 
-        #rm -rf feeds/packages/lang/golang
-        #git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
-        git clone --depth=1 https://github.com/Siriling/5G-Modem-Support Modem-Support
-        # 5G通信模组拨号工具
-        mkdir package/community
-        mkdir package/community/quectel_QMI_WWAN
-        mkdir package/community/quectel_cm_5G
-        mkdir package/community/quectel_MHI
-        mkdir package/community/luci-app-hypermodem        
-        mkdir package/community/sms-tool
-        mkdir package/community/luci-app-sms-tool
-        cp -rf ./Modem-Support/quectel_QMI_WWAN/* package/community/quectel_QMI_WWAN
-        cp -rf ./Modem-Support/quectel_cm_5G/* package/community/quectel_cm_5G
-        cp -rf ./Modem-Support/quectel_MHI/* package/community/quectel_MHI
-        cp -rf ./Modem-Support/luci-app-hypermodem/* package/community/luci-app-hypermodem
-        cp -rf ./Modem-Support/sms-tool/* package/community/sms-tool
-        cp -rf ./Modem-Support/luci-app-sms-tool/* package/community/luci-app-sms-tool
-        
-        #5G相关
-        echo "
-        # 5G模组信号插件
-        # CONFIG_PACKAGE_ext-rooter-basic=y
-        
-        # 5G模组短信插件
-        #CONFIG_PACKAGE_luci-app-sms-tool=y
-        
-        # 5G模组信息插件
-        # CONFIG_PACKAGE_luci-app-3ginfo-lite=y
-        # CONFIG_PACKAGE_luci-app-3ginfo=y
-        
-        # 5G模组信息插件+AT工具
-        # CONFIG_PACKAGE_luci-app-cpe=y
-        # CONFIG_PACKAGE_sendat=y
-        CONFIG_PACKAGE_sms-tool=y
-        #CONFIG_PACKAGE_luci-app-modem=y
-        
-        # QMI拨号工具（移远，广和通）
-        # CONFIG_PACKAGE_quectel-CM-5G=y
-        # CONFIG_PACKAGE_fibocom-dial=y
-        
-        # QMI拨号软件
-        # CONFIG_PACKAGE_kmod-qmi_wwan_f=y
-        # CONFIG_PACKAGE_luci-app-hypermodem=y
-        
-        # Gobinet拨号软件
-        # CONFIG_PACKAGE_kmod-gobinet=y
-        # CONFIG_PACKAGE_luci-app-gobinetmodem=y
-        
-        # 串口调试工具
-        CONFIG_PACKAGE_minicom=y
-        
-        # 脚本拨号工具依赖
-        CONFIG_PACKAGE_procps-ng=y
-        CONFIG_PACKAGE_procps-ng-ps=y
-        " >> .config
-        
-        # 额外组件
-        echo "
-        CONFIG_GRUB_IMAGES=y
-        CONFIG_VMDK_IMAGES=y
-        CONFIG_VDI_IMAGES=y
-        " >> .config
-        #Passwall和Passwall2
-        #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
-        #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/passwall2 
-        #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/passwall
-        #git clone --depth=1 https://github.com/vernesong/OpenClash package/OpenClash
-        #find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
-        #find ./ | grep Makefile | grep mosdns | xargs rm -f
-        #git clone https://github.com/sbwml/luci-app-mosdns -b v5-lua package/mosdns
-        #git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
-        #echo "
-        #CONFIG_PACKAGE_luci-app-passwall2=y
-        #CONFIG_PACKAGE_luci-app-passwall=y
-        #CONFIG_PACKAGE_luci-app-passwall_Transparent_Proxy=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ChinaDNS_NG=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Hysteria=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_IPv6_Nat=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Kcptun=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_NaiveProxy=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Simple_Obfs=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_GO=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_Plus=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
-        #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray_Plugin=y
-        #CONFIG_PACKAGE_luci-app-haproxy-tcp=y
-        #" >> .config
+        $GITHUB_WORKSPACE/scripts/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/scripts/preset-adguard-core.sh $CLASH_KERNEL
 
     - name: Download DL Package
       run: |
