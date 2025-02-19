@@ -10,6 +10,7 @@ env:
   REPO_BRANCH: istoreos-22.03 
   CONFIG_FILE: configs/x86.config
   DIY_SCRIPT: diy-x86.sh
+  CLASH_CORE_SH: preset-clash-core-amd64.sh
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
@@ -139,6 +140,7 @@ jobs:
       id: compile
       run: |
         cd $OPENWRT_PATH
+        chmod +x $GITHUB_WORKSPACE/$CLASH_CORE_SH && $GITHUB_WORKSPACE/$CLASH_CORE_SH
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "status=success" >> $GITHUB_OUTPUT
