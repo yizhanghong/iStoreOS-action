@@ -45,8 +45,9 @@ git clone --depth=1 -b master https://github.com/linkease/nas-packages package/n
 git clone --depth=1 -b main https://github.com/linkease/nas-packages-luci package/nas-packages-luci
 git clone --depth=1 -b main https://github.com/jjm2473/openwrt-apps package/openwrt-apps
 
-# 更换golong 1.23
-git clone https://github.com/oppen321/golang feeds/packages/lang/golang
+# 更换golong 1.24
+#git clone https://github.com/oppen321/golang feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
 
 # 5g支持 
 git clone --depth=1 https://github.com/Siriling/5G-Modem-Support Modem-Support
