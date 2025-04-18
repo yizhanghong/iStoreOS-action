@@ -1,0 +1,220 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2020 Rockchip Electronics Co., Ltd.
+ *
+ */
+
+#include "rk3568-evb1-ddr4-v10.dtsi"
+#include "rk3568-linux.dtsi"
+#include <dt-bindings/display/rockchip_vop.h>
+
+/ {
+	model = "JETRON JENET-LU Board";
+	compatible = "JETRON,jenet-lu", "rockchip,rk3568";
+	
+	aliases {
+		watchdog2 = &qywatchdog;
+	};
+
+	com_switch {
+		pinctrl-names = "default";
+        pinctrl-0 = <&com_swtich_pin>;
+		compatible = "qiyang,qiyang_io_misc";
+		gpio = <&gpio2 RK_PD2 0>;
+		status = "okay";
+	};
+
+	com_pwr {
+		pinctrl-names = "default";
+        pinctrl-0 = <&com_pwr_pin>;
+		compatible = "qiyang,qiyang_io_misc";
+		gpio = <&gpio2 RK_PD3 1>;
+		status = "okay";
+	};
+
+	leds: leds {
+        compatible = "gpio-leds";
+        work_led: work {
+            gpios = <&gpio4 RK_PC4 GPIO_ACTIVE_LOW>;
+            linux,default-trigger = "heartbeat";
+        };
+    };	
+
+	qywatchdog: qywatchdog {
+		/* ADM706 */
+		compatible = "linux,wdt-gpio";
+		pinctrl-names = "default";
+		pinctrl-0 = <&gpio_dog_pin>;
+		gpios = <&gpio0 RK_PA5 GPIO_ACTIVE_LOW>;
+		en-gpios = <&gpio0 RK_PA6 GPIO_ACTIVE_HIGH>;
+		hw_algo = "toggle";
+		always-running;
+		hw_margin_ms = <1600>;
+	};
+    qy_typec_switch: typec_switch{
+        compatible = "qiyang,typec_switch";
+        pinctrl-names = "default";
+        pinctrl-0 = <&gpio_switch_pin>;
+        switch-gpios = <&gpio4 RK_PC5 GPIO_ACTIVE_HIGH>;
+        extcon = <&fusb1>;
+    };
+
+   /delete-node/ vcc5v0-otg-regulator;
+};
+
+&uart4 {
+    status = "okay";
+};
+
+&uart5 {
+    status = "disabled";
+};
+
+&uart7 {
+	status = "disabled";
+};
+
+
+&uart8 {
+	status = "disabled";
+};
+
+&can0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&can0m0_pins>;
+	status = "okay";
+};
+
+&can1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&can1m1_pins>;
+	status = "okay";
+};
+
+&can2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&can2m0_pins>;
+	status = "okay";
+};
+
+&i2c0 {   
+
+	rtc: pcf8563:pcf8563@0x51 {
+		compatible = "nxp,pcf8563";
+		reg = <0x51>;
+		status = "okay";
+	};
+
+};
+
+&i2c3 {   
+    status = "okay";
+    pinctrl-names = "default";
+    pinctrl-0 = <&i2c3m1_xfer>;
+	fusb1: fusb30x@22 {
+		compatible = "fairchild,fusb302";
+		reg = <0x22>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&fusb1_int>;
+		vbus-5v-gpios = <&gpio4 RK_PC6 GPIO_ACTIVE_HIGH>;
+		int-n-gpios = <&gpio0 RK_PA0 GPIO_ACTIVE_HIGH>;
+		fusb302,role = "ROLE_MODE_DRP";
+		fusb302,try_role = "ROLE_MODE_DFP";
+		status = "okay";
+	};
+};
+
+&usbdrd_dwc3 {
+	dr_mode = "otg";
+	extcon = <&fusb1>;
+	status = "okay";
+};
+
+&u2phy0_otg {
+    /delete-property/ vbus-supply;
+	status = "okay";
+};
+
+&spi0 {
+	pinctrl-0 = <&spi0m0_pins_hs &spi0m0_cs0_hs>;
+	status = "okay";
+    
+	spi_dev: spidev@0{
+		compatible = "spidev";
+		spi-max-frequency = <10000000>;
+		reg = <0>;
+		status = "okay";
+	};
+    
+};
+
+
+&vp0 {
+	cursor-win-id = <ROCKCHIP_VOP2_CLUSTER0>;
+};
+
+&vp1 {
+	cursor-win-id = <ROCKCHIP_VOP2_CLUSTER1>;
+};
+
+
+
+&pinctrl {
+
+	com-swtich {
+		com_swtich_pin: com_swtich_pin-pwr{
+			rockchip,pins = 
+			<2 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+	com-pwr {
+		com_pwr_pin: com_pwr_pin-pwr{
+			rockchip,pins = 
+			<2 RK_PD3 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+	gpiodog{
+        gpio_dog_pin: gpio_dog_pin{
+            rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>,
+            				<0 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+    fusb1{
+        fusb1_int: fusb1_int{
+            rockchip,pins = <4 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>,
+                            <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_none>;
+        };
+    };
+    gpio_switch{
+        gpio_switch_pin: gpio_switch_pin{
+            rockchip,pins = <4 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
+        };
+    };
+
+};
+
+&hdmi {
+	status = "okay";
+};
+
+&hdmi_in_vp0 {
+	status = "disabled";
+};
+
+&hdmi_in_vp1 {
+	status = "okay";
+};
+
+&display_subsystem {
+	status = "okay";
+};
+
+&gmac0 {
+	status = "okay";
+};
+
+&gmac1 {
+	status = "okay";
+};
