@@ -27,7 +27,7 @@ $(call Device/rk3568)
   DEVICE_PACKAGES := kmod-scsi-core kmod-thermal kmod-rkwifi-bcmdhd-pcie rkwifi-firmware-ap6275s
 endef
 TARGET_DEVICES += jetron_jenet-lu
-" >>  target/linux/rockchip/Image/rk35xx.mk
+" >>  target/linux/rockchip/image/rk35xx.mk
 
 cp -f $GITHUB_WORKSPACE/dts/rk3568-evb1-ddr4-v10.dtsi target/linux/rockchip/dts/rk3568/rk3568-evb1-ddr4-v10.dtsi
 cp -f $GITHUB_WORKSPACE/dts/rk3568-jenet.dtsi target/linux/rockchip/dts/rk3568/rk3568-jenet.dtsi
