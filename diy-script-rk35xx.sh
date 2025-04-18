@@ -19,7 +19,7 @@ function git_sparse_clone() {
 # 添加jenet-lu的dts
 echo "
 define Device/jetron_jenet-lu
-$(call Device/rk3568)
+\$(call Device/rk3568)
   DEVICE_VENDOR := JETRON
   DEVICE_MODEL := JENET-LU
   SUPPORTED_DEVICES += jetron,jenet-lu
