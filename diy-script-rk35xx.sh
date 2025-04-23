@@ -29,8 +29,8 @@ endef
 TARGET_DEVICES += jetron_jenet-lu
 " >>  target/linux/rockchip/image/rk35xx.mk
 
-cp -f $GITHUB_WORKSPACE/dts/rk3568-evb1-ddr4-v10.dtsi target/linux/rockchip/dts/rk3568/rk3568-evb1-ddr4-v10.dtsi
-cp -f $GITHUB_WORKSPACE/dts/rk3568-jenet.dtsi target/linux/rockchip/dts/rk3568/rk3568-jenet.dtsi
+#cp -f $GITHUB_WORKSPACE/dts/rk3568-evb1-ddr4-v10.dtsi target/linux/rockchip/dts/rk3568/rk3568-evb1-ddr4-v10.dtsi
+cp -f $GITHUB_WORKSPACE/dts/rk3568-jetron.dtsi target/linux/rockchip/dts/rk3568/rk3568-jetron.dtsi
 cp -f $GITHUB_WORKSPACE/dts/rk3568-jenet-lu.dts target/linux/rockchip/dts/rk3568/rk3568-jenet-lu.dts
 
 git clone --depth=1 -b main https://github.com/linkease/istore-packages package/istore-packages
