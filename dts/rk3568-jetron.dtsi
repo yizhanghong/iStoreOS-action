@@ -14,7 +14,7 @@
 	aliases {
 		mmc0 = &sdmmc0;
 		mmc1 = &sdhci;
-
+		mmc2 = &sdmmc2;
 		led-boot = &led_work;
 		led-failsafe = &led_work;
 		led-running = &led_work;
