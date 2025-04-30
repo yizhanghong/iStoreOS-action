@@ -177,7 +177,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: ${{ env.FIRMWARE_PATH }}/*
         body: |
-          **This is iStoreOS Firmware for ${{ env.FIRMWARE_TAG }}**
+          **This is LEDE ROCKCHIP Firmware for ${{ env.FIRMWARE_TAG }}**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }} (jenet-lu)
           - ⚽ 固件源码: ${{ env.REPO_URL }}
