@@ -16,22 +16,21 @@ function git_sparse_clone() {
   cd .. && rm -rf $repodir
 }
 
-# 添加jenet-lu的dts
+# 添加imb3588的dts
 echo "
-define Device/jetron_jenet-lu
-\$(call Device/rk3568)
-  DEVICE_VENDOR := JETRON
-  DEVICE_MODEL := JENET-LU
-  SUPPORTED_DEVICES += jetron,jenet-lu
-  DEVICE_DTS := rk3568-jenet-lu
-  DEVICE_PACKAGES := kmod-scsi-core kmod-thermal kmod-rkwifi-bcmdhd-pcie rkwifi-firmware-ap6275s
+define Device/yx_imb3588
+\$(call Device/rk3588)
+  DEVICE_VENDOR := YX
+  DEVICE_MODEL := IMB3588
+  SUPPORTED_DEVICES += yx,imb3588
+  DEVICE_DTS := rk3588-imb3588
+  DEVICE_PACKAGES := kmod-r8125 kmod-nvme kmod-hwmon-pwmfan kmod-thermal kmod-rkwifi-bcmdhd-pcie rkwifi-firmware-ap6275p
+  IMAGE/sysupgrade.img.gz := boot-combined | boot-script rk3588 | pine64-img | gzip | append-metadata
 endef
-TARGET_DEVICES += jetron_jenet-lu
+TARGET_DEVICES += yx_imb3588
 " >>  target/linux/rockchip/image/rk35xx.mk
-
-#cp -f $GITHUB_WORKSPACE/dts/rk3568-evb1-ddr4-v10.dtsi target/linux/rockchip/dts/rk3568/rk3568-evb1-ddr4-v10.dtsi
-cp -f $GITHUB_WORKSPACE/dts/rk3568-jetron.dtsi target/linux/rockchip/dts/rk3568/rk3568-jetron.dtsi
-cp -f $GITHUB_WORKSPACE/dts/rk3568-jenet-lu.dts target/linux/rockchip/dts/rk3568/rk3568-jenet-lu.dts
+ 
+cp -f $GITHUB_WORKSPACE/dts/rk3588-imb3588.dts target/linux/rockchip/dts/rk3588/rk3588-imb3588.dts
 
 git clone --depth=1 -b main https://github.com/linkease/istore-packages package/istore-packages
 git clone --depth=1 -b dev https://github.com/jjm2473/luci-app-diskman package/diskman
