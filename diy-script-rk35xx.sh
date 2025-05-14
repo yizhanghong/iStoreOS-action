@@ -39,5 +39,23 @@ git clone --depth=1 -b master https://github.com/linkease/nas-packages package/n
 git clone --depth=1 -b main https://github.com/linkease/nas-packages-luci package/nas-packages-luci
 git clone --depth=1 -b main https://github.com/jjm2473/openwrt-apps package/openwrt-apps
 
+#添加qmodem
+git clone --depth=1 -b main https://github.com/FUjr/QModem package/modem
+echo "
+CONFIG_PACKAGE_luci-i18n-qmodem-zh-cn=y
+CONFIG_PACKAGE_luci-app-qmodem=y
+CONFIG_PACKAGE_luci-app-qmodem_INCLUDE_vendor-qmi-wwan=y
+# CONFIG_PACKAGE_luci-app-qmodem_INCLUDE_generic-qmi-wwan is not set
+CONFIG_PACKAGE_luci-app-qmodem_USE_TOM_CUSTOMIZED_QUECTEL_CM=y
+# CONFIG_PACKAGE_luci-app-qmodem_USING_QWRT_QUECTEL_CM_5G is not set
+# CONFIG_PACKAGE_luci-app-qmodem_USING_NORMAL_QUECTEL_CM is not set
+# CONFIG_PACKAGE_luci-app-qmodem_INCLUDE_ADD_PCI_SUPPORT is not set
+# CONFIG_PACKAGE_luci-app-qmodem_INCLUDE_ADD_QFIREHOSE_SUPPORT is not set
+CONFIG_PACKAGE_luci-app-qmodem-hc=y
+CONFIG_PACKAGE_luci-app-qmodem-mwan=y
+CONFIG_PACKAGE_luci-app-qmodem-sms=y
+CONFIG_PACKAGE_luci-app-qmodem-ttl=y
+" > .config
+
 ./scripts/feeds update -a
 ./scripts/feeds install -a
