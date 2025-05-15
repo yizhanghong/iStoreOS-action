@@ -42,6 +42,7 @@ git clone --depth=1 -b main https://github.com/jjm2473/openwrt-apps package/open
 #添加qmodem
 git clone --depth=1 -b main https://github.com/FUjr/QModem package/modem
 echo "
+CONFIG_TARGET_DEVICE_rockchip_rk35xx_DEVICE_yx_imb3588=y
 CONFIG_PACKAGE_luci-i18n-qmodem-zh-cn=y
 CONFIG_PACKAGE_luci-app-qmodem=y
 CONFIG_PACKAGE_luci-app-qmodem_INCLUDE_vendor-qmi-wwan=y
