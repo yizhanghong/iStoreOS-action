@@ -56,7 +56,7 @@ CONFIG_PACKAGE_luci-app-qmodem-hc=y
 CONFIG_PACKAGE_luci-app-qmodem-mwan=y
 CONFIG_PACKAGE_luci-app-qmodem-sms=y
 CONFIG_PACKAGE_luci-app-qmodem-ttl=y
-" > .config
+" >> .config
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
